@@ -1,0 +1,17 @@
+# Python & Logs
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+.venv/
+env/
+venv/
+
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+
+# Temporary / OS
+.DS_Store
+Thumbs.db
