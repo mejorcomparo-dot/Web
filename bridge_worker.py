@@ -199,12 +199,25 @@ def ejecutar_tarea_real(data: dict) -> dict:
         commit_res = run_cmd(f"git commit -m \"{commit_msg}\"")
         log_res = run_cmd("git log -n 1 --oneline")
         last_commit = log_res["stdout"] if log_res["returncode"] == 0 else ""
+
+        # Auto-push a GitHub si el remoto origin está configurado
+        remote_check = run_cmd("git remote")
+        push_info = ""
+        if "origin" in remote_check.get("stdout", ""):
+            b_name = branch if branch else "main"
+            push_res = run_cmd(f"git push -u origin {b_name}")
+            if push_res["returncode"] == 0:
+                push_info = f" | Push a GitHub exitoso (origin/{b_name})"
+                print(f"[GIT] Push completado a GitHub: origin/{b_name}")
+            else:
+                push_info = f" | Aviso push: {push_res.get('stderr', '')[:80]}"
+
         git_info = {
             "branch": branch or "actual",
             "commit_msg": commit_msg,
-            "last_commit": last_commit
+            "last_commit": f"{last_commit}{push_info}"
         }
-        print(f"[GIT] Commit completado: {last_commit}")
+        print(f"[GIT] Commit completado: {last_commit}{push_info}")
 
     # Construir reporte de salida
     salida_texto = []
