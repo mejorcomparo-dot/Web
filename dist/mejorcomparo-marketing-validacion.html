@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validación de Estrategia — MejorComparo Marketing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #1D3F66;
+      --primary-dark: #122842;
+      --primary-light: #2A5A91;
+      --accent: #ECC013;
+      --accent-hover: #d8ad07;
+      --accent-soft: rgba(236, 192, 19, 0.12);
+      --bg: #F4F7FB;
+      --surface: #FFFFFF;
+      --surface-subtle: #F8FAFC;
+      --text: #0F172A;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+      --border-focus: #CBD5E1;
+      --success: #10B981;
+      --danger: #EF4444;
+      --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+      --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.06);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', system-ui, sans-serif;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+
+    /* Top Banner */
+    .top-badge-bar {
+      background: linear-gradient(90deg, #122842, #1D3F66);
+      color: #fff;
+      padding: 0.6rem 1rem;
+      font-size: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .badge-internal {
+      background: var(--accent);
+      color: #111;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* Header */
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 2.2rem 1.25rem 2rem;
+      background-image: radial-gradient(circle at 90% 10%, rgba(236,192,19,0.15) 0%, transparent 50%);
+    }
+    .header-container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+    .header-tagline {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.35rem;
+    }
+    header h1 {
+      color: #FFFFFF;
+      font-size: 2.1rem;
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+      line-height: 1.15;
+    }
+    .meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .pill {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #F8FAFC;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 500;
+    }
+    .pill-accent {
+      background: rgba(236, 192, 19, 0.2);
+      border-color: rgba(236, 192, 19, 0.4);
+      color: #FDE047;
+      font-weight: 600;
+    }
+
+    /* Sticky Navigation */
+    nav.sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      gap: 0.4rem;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-inner a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .nav-inner a:hover, .nav-inner a.active {
+      color: var(--primary);
+      background: var(--accent-soft);
+    }
+
+    /* Container */
+    main {
+      max-width: 1040px;
+      margin: 1.5rem auto 4rem;
+      padding: 0 1.25rem;
+    }
+
+    /* Section Cards */
+    section.block-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s;
+    }
+    section.block-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-num {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .section-header h2 {
+      font-size: 1.3rem;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    /* Grid Layouts */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+
+    /* Strategy Cards */
+    .info-box {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+    }
+    .info-box h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .info-box p { font-size: 0.9rem; color: var(--text-muted); }
+
+    /* Claims OK vs Prohibidos */
+    .claims-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    @media (max-width: 640px) { .claims-container { grid-template-columns: 1fr; } }
+    .claim-col {
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+    }
+    .claim-ok {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .claim-ok h4 { color: #047857; margin-bottom: 0.6rem; font-size: 0.92rem; }
+    .claim-bad {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .claim-bad h4 { color: #B91C1C; margin-bottom: 0.6rem; font-size: 0.92rem; }
+    .claim-list { list-style: none; font-size: 0.86rem; }
+    .claim-list li { margin-bottom: 0.45rem; display: flex; align-items: flex-start; gap: 0.4rem; }
+
+    /* Table */
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+    table.data-table th {
+      background: var(--surface-subtle);
+      color: var(--primary);
+      font-weight: 700;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    table.data-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    table.data-table tr:last-child td { border-bottom: none; }
+    .progress-bar-bg {
+      background: #E2E8F0;
+      height: 8px;
+      border-radius: 999px;
+      overflow: hidden;
+      width: 100px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 0.5rem;
+    }
+    .progress-bar-fill {
+      background: var(--accent);
+      height: 100%;
+      border-radius: 999px;
+    }
+
+    /* Brand Kit Swatches */
+    .swatch-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--surface);
+    }
+    .swatch-color { height: 80px; width: 100%; }
+    .swatch-meta { padding: 0.85rem; font-size: 0.85rem; }
+    .swatch-meta strong { display: block; font-size: 0.95rem; margin-bottom: 0.15rem; }
+
+    /* CTA Decision Options */
+    .cta-decision-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .cta-card {
+      border: 2px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+      cursor: pointer;
+      background: var(--surface);
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .cta-card:hover {
+      border-color: var(--primary-light);
+      background: var(--surface-subtle);
+    }
+    .cta-card.selected {
+      border-color: var(--primary);
+      background: rgba(29, 63, 102, 0.05);
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+    .cta-card input[type="radio"] { margin-right: 0.5rem; }
+    .cta-card strong { color: var(--primary); font-size: 0.95rem; }
+
+    /* ========================================================
+       SECCIÓN REVOLUCIONARIA: PLANTILLAS VISUALES DE INSTAGRAM
+       ======================================================== */
+    .template-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .toggle-group {
+      display: inline-flex;
+      background: #E2E8F0;
+      border-radius: 999px;
+      padding: 3px;
+    }
+    .toggle-btn {
+      border: none;
+      background: transparent;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .toggle-btn.active {
+      background: #FFFFFF;
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .ig-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    /* Instagram Phone / Post Mockup Container */
+    .ig-card {
+      background: #FFFFFF;
+      border: 1px solid #D8E0E9;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .ig-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    /* Instagram Header */
+    .ig-header {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 0.9rem;
+      border-bottom: 1px solid #F1F5F9;
+      gap: 0.6rem;
+    }
+    .ig-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #2A5A91);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.75rem;
+      border: 2px solid #E2E8F0;
+    }
+    .ig-user-info { flex: 1; }
+    .ig-username { font-size: 0.82rem; font-weight: 700; color: #0F172A; display: block; line-height: 1.2; }
+    .ig-handle { font-size: 0.72rem; color: #64748B; }
+    .ig-more { color: #94A3B8; font-size: 1.1rem; }
+
+    /* Instagram Visual Canvas (The actual post image) */
+    .ig-canvas {
+      position: relative;
+      width: 100%;
+      background: linear-gradient(145deg, #122842 0%, #1D3F66 100%);
+      color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.5rem;
+      overflow: hidden;
+      transition: aspect-ratio 0.3s ease, min-height 0.3s ease;
+      aspect-ratio: 1 / 1; /* Default 1:1 */
+    }
+    .ig-canvas.ratio-4-5 {
+      aspect-ratio: 4 / 5;
+    }
+
+    /* Canvas Elements */
+    .canvas-eyebrow {
+      display: inline-block;
+      align-self: flex-start;
+      background: var(--accent);
+      color: #111;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+    .canvas-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+    }
+    .canvas-body {
+      font-size: 0.85rem;
+      color: #CBD5E1;
+      line-height: 1.45;
+    }
+    .canvas-bullets {
+      list-style: none;
+      margin: 0.75rem 0;
+      font-size: 0.82rem;
+    }
+    .canvas-bullets li {
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .canvas-bullets li span.check {
+      color: var(--accent);
+      font-weight: bold;
+    }
+    .canvas-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      font-size: 0.75rem;
+      color: #94A3B8;
+    }
+    .canvas-logo {
+      font-weight: 700;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.78rem;
+    }
+    .canvas-logo span { color: var(--accent); }
+    .canvas-cta-btn {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #FFFFFF;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Comparison Mockup Specifics */
+    .compare-boxes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin: 0.5rem 0;
+    }
+    .box-bad {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 8px;
+      padding: 0.6rem;
+      font-size: 0.72rem;
+      color: #FECACA;
+    }
+    .box-good {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 8px;
+      padding: 0.6rem;
+      font-size: 0.72rem;
+      color: #A7F3D0;
+    }
+
+    /* Testimonial Specifics */
+    .quote-mark {
+      font-size: 2.2rem;
+      color: var(--accent);
+      line-height: 0.8;
+      margin-bottom: 0.25rem;
+      font-family: Georgia, serif;
+    }
+    .stars { color: var(--accent); font-size: 0.85rem; margin-bottom: 0.5rem; }
+
+    /* Carousel Cover & Slide Badge */
+    .slide-badge {
+      background: rgba(0, 0, 0, 0.4);
+      color: #F8FAFC;
+      border-radius: 999px;
+      padding: 0.2rem 0.55rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      align-self: flex-end;
+    }
+
+    /* Instagram Action Bar */
+    .ig-actions {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.6rem 0.9rem;
+      font-size: 1.2rem;
+      color: #1E293B;
+      border-bottom: 1px solid #F1F5F9;
+    }
+    .ig-actions-left { display: flex; gap: 0.85rem; }
+
+    /* Instagram Caption / Slots Footer */
+    .ig-details {
+      padding: 0.85rem 0.9rem;
+      font-size: 0.8rem;
+      background: #FAFAFA;
+      border-top: 1px solid #F1F5F9;
+    }
+    .slot-tag {
+      display: inline-block;
+      background: #E2E8F0;
+      color: #334155;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      margin: 0.15rem 0.15rem 0.15rem 0;
+      border: 1px solid #CBD5E1;
+    }
+
+    /* Client Checklist */
+    .checklist {
+      list-style: none;
+    }
+    .checklist-item {
+      padding: 0.85rem 1rem;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .checklist-item:hover { background: #EEF2F6; }
+    .checklist-item input[type="checkbox"] {
+      width: 1.15rem;
+      height: 1.15rem;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 1rem 4rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="top-badge-bar">
+    <div style="display: flex; align-items: center; gap: 0.6rem;">
+      <span class="badge-internal">Borrador Interno</span>
+      <span>Validación Cliente · Campaña Q4</span>
+    </div>
+    <span style="opacity: 0.75; font-size: 0.7rem;">Documento Oficial del Enjambre</span>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="header-tagline">Presentación de Estrategia de Contenidos</div>
+      <h1>MejorComparo Marketing</h1>
+      <p style="color: #CBD5E1; max-width: 650px; font-size: 0.95rem;">
+        Estrategia de posicionamiento y captación en redes para pymes. Comparar con criterio, decidir sin humo.
+      </p>
+
+      <div class="meta-pills">
+        <span class="pill">📁 Slug: <strong>mejorcomparo-marketing</strong></span>
+        <span class="pill">📅 Inicio: <strong>29/09/2026</strong></span>
+        <span class="pill">⚡ Ritmo: <strong>1 publicación / día</strong></span>
+        <span class="pill">📸 Canal: <strong>Instagram Only</strong></span>
+        <span class="pill pill-accent">💰 Inversión / Fee: <strong>XXX</strong> (A determinar)</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky Navigation -->
+  <nav class="sticky-nav">
+    <div class="nav-inner">
+      <a href="#estrategia" class="active">1. Estrategia</a>
+      <a href="#pilares">2. Pilares de Contenido</a>
+      <a href="#brand">3. Brand Kit</a>
+      <a href="#cta">4. Decisión CTA</a>
+      <a href="#plantillas" style="color: var(--primary); font-weight: 700;">5. 📸 Plantillas Instagram (Visual)</a>
+      <a href="#checklist">6. Checklist Cliente</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- 1. Estrategia -->
+    <section class="block-card" id="estrategia">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <h2>Estrategia & Posicionamiento</h2>
+      </div>
+
+      <div class="grid-2">
+        <div class="info-box">
+          <h3>🎯 Objetivo Central</h3>
+          <p>Hacer visible MejorComparo Marketing como el lugar de confianza donde el dueño de una pyme compara, analiza y elige la estrategia de marketing que realmente encaja con su negocio, sin humo ni falsas promesas.</p>
+        </div>
+        <div class="info-box">
+          <h3>👤 Perfil de Cliente (ICP)</h3>
+          <p>Dueños de pymes y autónomos cansados de promesas vacías que buscan claridad, métricas reales y un socio que hable su mismo idioma.</p>
+        </div>
+        <div class="info-box">
+          <h3>🗣️ Tono de Comunicación</h3>
+          <p>Cercano, directo, transparente, inteligente y pícaro. La figura de «el amigo experto que sabe comparar y no te vende la moto».</p>
+        </div>
+        <div class="info-box">
+          <h3>💡 Mensaje Núcleo</h3>
+          <p><em>«Tu marketing, pero mejor pensado.»</em> Comparamos opciones, analizamos pros y contras, y tú eliges con datos reales.</p>
+        </div>
+      </div>
+
+      <div class="claims-container">
+        <div class="claim-col claim-ok">
+          <h4>✅ Claims Permitidos (Lenguaje Autorizado)</h4>
+          <ul class="claim-list">
+            <li>✔ «Comparar con criterio es el mejor ahorro.»</li>
+            <li>✔ «Tu marketing, pero mejor pensado.»</li>
+            <li>✔ «Analizamos antes de gastar un solo euro.»</li>
+            <li>✔ «Estrategias probadas para negocios reales.»</li>
+          </ul>
+        </div>
+        <div class="claim-col claim-bad">
+          <h4>🚫 Claims Prohibidos (Off-Limits Estrictos)</h4>
+          <ul class="claim-list">
+            <li>✖ Prohibido usar la palabra <strong>«GRATIS»</strong> en los CTAs.</li>
+            <li>✖ Prohibido prometer <em>«resultados garantizados»</em> o retornos mágicos.</li>
+            <li>✖ Prohibido mencionar o enlazar a <strong>LinkedIn</strong> (Campaña Instagram Only).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Pilares de Contenido -->
+    <section class="block-card" id="pilares">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <h2>Pilares de Contenido & Mix de Formatos</h2>
+      </div>
+
+      <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.25rem;">
+        Distribución calculada para educar a la audiencia, generar autoridad y traccionar leads cualificados diariamente:
+      </p>
+
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Pilar Estratégico</th>
+              <th>Enfoque Editorial</th>
+              <th>Peso (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Comparar con Criterio</strong></td>
+              <td>Comparativas directas de herramientas, presupuestos y canales de venta.</td>
+              <td><strong>25%</strong> <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 25%;"></div></div></td>
+            </tr>
+            <tr>
+              <td><strong>2. Errores que te Cuestan</strong></td>
+              <td>Casos reales de fugas de dinero habituales en marketing de pymes.</td>
+              <td><strong>20%</strong> <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 20%;"></div></div></td>
+            </tr>
+            <tr>
+              <td><strong>3. Mejor Pensado (Método)</strong></td>
+              <td>Explicación del método analítico y frameworks de captación.</td>
+              <td><strong>20%</strong> <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 20%;"></div></div></td>
+            </tr>
+            <tr>
+              <td><strong>4. Packs & Oferta Clara</strong></td>
+              <td>Presentación de paquetes de servicio transparentes y sin letra pequeña.</td>
+              <td><strong>15%</strong> <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 15%;"></div></div></td>
+            </tr>
+            <tr>
+              <td><strong>5. Preguntas de Dueño de Pyme</strong></td>
+              <td>Respuestas rápidas a inquietudes habituales de facturación y leads.</td>
+              <td><strong>10%</strong> <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 10%;"></div></div></td>
+            </tr>
+            <tr>
+              <td><strong>6. Prueba Social & Casos de Éxito</strong></td>
+              <td>Testimonios, reseñas y resultados auditables de clientes satisfechos.</td>
+              <td><strong>10%</strong> <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 10%;"></div></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top: 1.25rem; padding: 1rem; background: var(--surface-subtle); border-radius: var(--radius-md); display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.88rem;">
+        <span><strong>Mix de Formatos:</strong></span>
+        <span>📑 <strong>50% Carruseles</strong> (Mayor retención y guardados)</span>
+        <span>🖼️ <strong>25% Post Estático</strong> (Mensajes contundentes de impacto)</span>
+        <span>🎬 <strong>25% Reels</strong> (Alcance y descubrimiento orgánico)</span>
+      </div>
+    </section>
+
+    <!-- 3. Brand Kit -->
+    <section class="block-card" id="brand">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <h2>Brand Kit & Identidad Visual</h2>
+      </div>
+
+      <div class="grid-3">
+        <div class="swatch-card">
+          <div class="swatch-color" style="background: #1D3F66;"></div>
+          <div class="swatch-meta">
+            <strong>Azul Corporativo (Primary)</strong>
+            <code>#1D3F66</code> · Confianza, autoridad y solidez
+          </div>
+        </div>
+
+        <div class="swatch-card">
+          <div class="swatch-color" style="background: #ECC013;"></div>
+          <div class="swatch-meta">
+            <strong>Oro / Amarillo (Accent)</strong>
+            <code>#ECC013</code> · Acción, inteligencia y dinamismo
+          </div>
+        </div>
+
+        <div class="swatch-card">
+          <div class="swatch-color" style="background: #0F172A;"></div>
+          <div class="swatch-meta">
+            <strong>Dark Slate (Backgrounds)</strong>
+            <code>#0F172A</code> · Contraste moderno y legible
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box" style="margin-top: 1.25rem;">
+        <h3>🔤 Sistema Tipográfico</h3>
+        <p><strong>Montserrat:</strong> Encabezados, títulos de alto impacto y cifras clave.<br>
+        <strong>Inter:</strong> Texto corrido, cuerpo de lectura y bullets informativos.<br>
+        <em>[Nota de Brand Kit: El logotipo oficial se entrega vectorizado en carpeta <code>brand/</code>].</em></p>
+      </div>
+    </section>
+
+    <!-- 4. Decisión CTA -->
+    <section class="block-card" id="cta">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <h2>Decisión de CTA & Conversión</h2>
+      </div>
+
+      <p style="color: var(--text-muted); font-size: 0.92rem;">
+        Selecciona la llamada a la acción principal para las publicaciones de Instagram (cumpliendo la regla de no usar la palabra «gratis»):
+      </p>
+
+      <div class="cta-decision-grid">
+        <label class="cta-card selected">
+          <input type="radio" name="cta_decision" checked>
+          <strong>1. «Pide tu análisis de visibilidad»</strong>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Enfocado en auditoría y diagnóstico previo.</p>
+        </label>
+        <label class="cta-card">
+          <input type="radio" name="cta_decision">
+          <strong>2. «Cuéntanos tu negocio»</strong>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Cercano, conversacional y directo a MD.</p>
+        </label>
+        <label class="cta-card">
+          <input type="radio" name="cta_decision">
+          <strong>3. «Mira el pack Redes con IA»</strong>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Comercial, directo al paquete tecnológico.</p>
+        </label>
+      </div>
+
+      <div class="grid-2" style="margin-top: 1rem;">
+        <div class="info-box">
+          <h3>🔗 Link-in-Bio</h3>
+          <p>Destino final a configurar: <span class="slot-tag">[COMPLETAR URL]</span><br>
+          <small>Pistas registradas: <code>@mejorcomparo_es</code> · Landing específica de captación.</small></p>
+        </div>
+        <div class="info-box">
+          <h3>📲 Conexión Instagram Outstand</h3>
+          <p>Estado actual: <strong>0 cuentas vinculadas</strong>.<br>
+          Acceso para autorizar cuenta: <span class="slot-tag">[COMPLETAR CONEXIÓN OUTSTAND]</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. PLANTILLAS DE INSTAGRAM (VISUALES Y RENDERIZADAS) -->
+    <section class="block-card" id="plantillas">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <div>
+          <h2>Plantillas Visuales de Instagram (Mocks Reales)</h2>
+          <p style="font-size: 0.85rem; color: var(--text-muted); font-weight: normal; margin-top: 0.15rem;">
+            Previsualización exacta de cómo se verá el contenido en el feed del cliente.
+          </p>
+        </div>
+      </div>
+
+      <!-- Barra de herramientas con conmutador de Aspect Ratio -->
+      <div class="template-toolbar">
+        <div>
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--primary);">Formato de Aspecto de Imagen:</span>
+          <span style="font-size: 0.78rem; color: var(--text-muted); margin-left: 0.25rem;">(Prueba cómo se adaptan)</span>
+        </div>
+        <div class="toggle-group">
+          <button class="toggle-btn active" onclick="setRatio('1-1')">⏹️ 1:1 Cuadrado (1080x1080)</button>
+          <button class="toggle-btn" onclick="setRatio('4-5')">📱 4:5 Vertical Feed (1080x1350)</button>
+        </div>
+      </div>
+
+      <div class="ig-posts-grid">
+
+        <!-- 1. Plantilla TIP -->
+        <div class="ig-card">
+          <div class="ig-header">
+            <div class="ig-avatar">MC</div>
+            <div class="ig-user-info">
+              <span class="ig-username">mejorcomparo_es</span>
+              <span class="ig-handle">Pilar 01 · Comparar con criterio</span>
+            </div>
+            <div class="ig-more">•••</div>
+          </div>
+
+          <!-- Canvas del post -->
+          <div class="ig-canvas" id="canvas-1">
+            <div>
+              <span class="canvas-eyebrow">Consejo para Pymes</span>
+              <div class="canvas-title">3 Señales de que estás tirando el dinero en tu marketing</div>
+              <ul class="canvas-bullets">
+                <li><span class="check">✔</span> No sabes qué canal te trae clientes reales.</li>
+                <li><span class="check">✔</span> Pagas informes mensuales que nadie entiende.</li>
+                <li><span class="check">✔</span> Tu web no tiene un sistema claro de captación.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="canvas-footer">
+                <div class="canvas-logo">Mejor<span>Comparo</span></div>
+                <div class="canvas-cta-btn">Guarda este post 🔖</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ig-actions">
+            <div class="ig-actions-left"><span>❤️</span><span>💬</span><span>↗️</span></div>
+            <span>🔖</span>
+          </div>
+          <div class="ig-details">
+            <strong>Plantilla 01: Formato TIP</strong><br>
+            Slots editables: <span class="slot-tag">{{eyebrow}}</span> <span class="slot-tag">{{titulo}}</span> <span class="slot-tag">{{bullets}}</span> <span class="slot-tag">{{cta}}</span>
+          </div>
+        </div>
+
+        <!-- 2. Plantilla COMPARACIÓN -->
+        <div class="ig-card">
+          <div class="ig-header">
+            <div class="ig-avatar">MC</div>
+            <div class="ig-user-info">
+              <span class="ig-username">mejorcomparo_es</span>
+              <span class="ig-handle">Pilar 02 · Errores habituales</span>
+            </div>
+            <div class="ig-more">•••</div>
+          </div>
+
+          <!-- Canvas del post -->
+          <div class="ig-canvas" id="canvas-2">
+            <div>
+              <span class="canvas-eyebrow" style="background:#fff; color:#111;">Comparativa Real</span>
+              <div class="canvas-title" style="font-size: 1.15rem;">¿Agencia Tradicional vs. Enfoque MejorComparo?</div>
+              
+              <div class="compare-boxes">
+                <div class="box-bad">
+                  <strong>❌ Tradicional</strong>
+                  <p>• Promesas vacías.<br>• Informes de 40 páginas.<br>• Costes ocultos.</p>
+                </div>
+                <div class="box-good">
+                  <strong>✅ MejorComparo</strong>
+                  <p>• Comparación real.<br>• Estrategia sin humo.<br>• Tú decides.</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="canvas-footer">
+                <div class="canvas-logo">Mejor<span>Comparo</span></div>
+                <div class="canvas-cta-btn">Tu marketing mejor pensado</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ig-actions">
+            <div class="ig-actions-left"><span>❤️</span><span>💬</span><span>↗️</span></div>
+            <span>🔖</span>
+          </div>
+          <div class="ig-details">
+            <strong>Plantilla 02: Comparación Split-Screen</strong><br>
+            Slots editables: <span class="slot-tag">{{titulo}}</span> <span class="slot-tag">{{col_a}}</span> <span class="slot-tag">{{col_b}}</span> <span class="slot-tag">{{cta}}</span>
+          </div>
+        </div>
+
+        <!-- 3. Plantilla OFERTA / PACK -->
+        <div class="ig-card">
+          <div class="ig-header">
+            <div class="ig-avatar">MC</div>
+            <div class="ig-user-info">
+              <span class="ig-username">mejorcomparo_es</span>
+              <span class="ig-handle">Pilar 04 · Packs y Servicios</span>
+            </div>
+            <div class="ig-more">•••</div>
+          </div>
+
+          <!-- Canvas del post -->
+          <div class="ig-canvas" id="canvas-3" style="background: linear-gradient(145deg, #0F172A 0%, #1D3F66 100%);">
+            <div>
+              <span class="canvas-eyebrow">Pack Especial</span>
+              <div class="canvas-title">Redes con IA: Publicaciones diarias sin perder tiempo</div>
+              <p class="canvas-body">Diseño profesional, copies persuasivos y calendario mensual automatizado para tu negocio.</p>
+              <div style="background: rgba(236,192,19,0.15); border: 1px solid var(--accent); padding: 0.5rem; border-radius: 8px; margin-top: 0.6rem; text-align: center;">
+                <span style="font-size: 0.75rem; color: #FDE047;">Tarifa plana transparente</span><br>
+                <strong style="font-size: 1.15rem; color: #FFFFFF;">Tarifa Pack: XXX / mes</strong>
+              </div>
+            </div>
+            <div>
+              <div class="canvas-footer">
+                <div class="canvas-logo">Mejor<span>Comparo</span></div>
+                <div class="canvas-cta-btn" style="background: var(--accent); color: #111;">Pide tu análisis 👉</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ig-actions">
+            <div class="ig-actions-left"><span>❤️</span><span>💬</span><span>↗️</span></div>
+            <span>🔖</span>
+          </div>
+          <div class="ig-details">
+            <strong>Plantilla 03: Oferta & Pack</strong><br>
+            Slots editables: <span class="slot-tag">{{badge}}</span> <span class="slot-tag">{{titulo}}</span> <span class="slot-tag">{{precio_o_dato}}</span> <span class="slot-tag">{{cta}}</span>
+          </div>
+        </div>
+
+        <!-- 4. Plantilla TESTIMONIO -->
+        <div class="ig-card">
+          <div class="ig-header">
+            <div class="ig-avatar">MC</div>
+            <div class="ig-user-info">
+              <span class="ig-username">mejorcomparo_es</span>
+              <span class="ig-handle">Pilar 06 · Casos de Confianza</span>
+            </div>
+            <div class="ig-more">•••</div>
+          </div>
+
+          <!-- Canvas del post -->
+          <div class="ig-canvas" id="canvas-4">
+            <div>
+              <div class="quote-mark">“</div>
+              <div class="stars">★★★★★</div>
+              <div class="canvas-body" style="font-size: 0.95rem; font-style: italic; color: #F8FAFC;">
+                «Llevábamos 2 años pagando a agencias sin saber qué hacían. Con MejorComparo supimos exactamente en qué invertir.»
+              </div>
+              <div style="margin-top: 0.8rem;">
+                <strong style="color: var(--accent); font-size: 0.85rem; display: block;">Carlos M.</strong>
+                <span style="color: #94A3B8; font-size: 0.75rem;">Gerente en Sector Servicios Pyme</span>
+              </div>
+            </div>
+            <div>
+              <div class="canvas-footer">
+                <div class="canvas-logo">Mejor<span>Comparo</span></div>
+                <div class="canvas-cta-btn">Caso auditado</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ig-actions">
+            <div class="ig-actions-left"><span>❤️</span><span>💬</span><span>↗️</span></div>
+            <span>🔖</span>
+          </div>
+          <div class="ig-details">
+            <strong>Plantilla 04: Testimonio Real</strong><br>
+            Slots editables: <span class="slot-tag">{{quote}}</span> <span class="slot-tag">{{nombre}}</span> <span class="slot-tag">{{empresa}}</span> <span class="slot-tag">{{avatar}}</span>
+          </div>
+        </div>
+
+        <!-- 5. Plantilla CARRUSEL PORTADA -->
+        <div class="ig-card">
+          <div class="ig-header">
+            <div class="ig-avatar">MC</div>
+            <div class="ig-user-info">
+              <span class="ig-username">mejorcomparo_es</span>
+              <span class="ig-handle">Carrusel · Portada de Gancho</span>
+            </div>
+            <div class="slide-badge">1 / 5</div>
+          </div>
+
+          <!-- Canvas del post -->
+          <div class="ig-canvas" id="canvas-5">
+            <div>
+              <span class="canvas-eyebrow" style="background:#3B82F6; color:#fff;">Guía Rápida</span>
+              <div class="canvas-title" style="font-size: 1.35rem; line-height: 1.2;">
+                Cómo auditar tu marketing en 5 minutos (y detectar dónde se te va el dinero)
+              </div>
+              <p class="canvas-body">Paso a paso para dueños de negocio que no tienen tiempo que perder.</p>
+            </div>
+            <div>
+              <div style="text-align: right; color: var(--accent); font-weight: 700; font-size: 0.78rem; margin-bottom: 0.3rem;">
+                Desliza para ver los 4 pasos 👉
+              </div>
+              <div class="canvas-footer">
+                <div class="canvas-logo">Mejor<span>Comparo</span></div>
+                <div class="canvas-cta-btn">Paso a paso</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ig-actions">
+            <div class="ig-actions-left"><span>❤️</span><span>💬</span><span>↗️</span></div>
+            <span>🔖</span>
+          </div>
+          <div class="ig-details">
+            <strong>Plantilla 05: Portada de Carrusel</strong><br>
+            Slots editables: <span class="slot-tag">{{serie}}</span> <span class="slot-tag">{{titulo}}</span> <span class="slot-tag">{{subtitulo}}</span> <span class="slot-tag">{{hint_swipe}}</span>
+          </div>
+        </div>
+
+        <!-- 6. Plantilla CARRUSEL SLIDE INTERNO -->
+        <div class="ig-card">
+          <div class="ig-header">
+            <div class="ig-avatar">MC</div>
+            <div class="ig-user-info">
+              <span class="ig-username">mejorcomparo_es</span>
+              <span class="ig-handle">Carrusel · Diapositiva de Contenido</span>
+            </div>
+            <div class="slide-badge">2 / 5</div>
+          </div>
+
+          <!-- Canvas del post -->
+          <div class="ig-canvas" id="canvas-6" style="background: #111E2E;">
+            <div>
+              <div style="color: var(--accent); font-weight: 800; font-size: 1.6rem; line-height: 1; margin-bottom: 0.4rem;">01</div>
+              <div class="canvas-title" style="font-size: 1.15rem;">Calcula tu Coste Real de Adquisición (CAC)</div>
+              <p class="canvas-body" style="font-size: 0.85rem;">
+                Si gastas 500€ al mes en redes y consigues 2 clientes, cada cliente te cuesta 250€. ¿Tu margen lo soporta?
+              </p>
+              <div style="background: rgba(255,255,255,0.06); border-radius: 8px; padding: 0.6rem; margin-top: 0.75rem; border-left: 3px solid var(--accent); font-size: 0.78rem;">
+                💡 <strong>Regla de oro:</strong> Tu CAC debe ser al menos 3 veces menor que tu ticket medio.
+              </div>
+            </div>
+            <div>
+              <div class="canvas-footer">
+                <div class="canvas-logo">Mejor<span>Comparo</span></div>
+                <div style="font-size: 0.72rem; color: #94A3B8;">Guía de Auditoría · Slide 2</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ig-actions">
+            <div class="ig-actions-left"><span>❤️</span><span>💬</span><span>↗️</span></div>
+            <span>🔖</span>
+          </div>
+          <div class="ig-details">
+            <strong>Plantilla 06: Slide Interno de Carrusel</strong><br>
+            Slots editables: <span class="slot-tag">{{numero_paso}}</span> <span class="slot-tag">{{titulo_slide}}</span> <span class="slot-tag">{{cuerpo}}</span> <span class="slot-tag">{{tip_box}}</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. Checklist de Validación del Cliente -->
+    <section class="block-card" id="checklist">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <h2>Puntos a Validar con el Cliente</h2>
+      </div>
+
+      <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.25rem;">
+        Marca los elementos conforme se revisen y aprueben con el cliente:
+      </p>
+
+      <ul class="checklist">
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <input type="checkbox" checked onclick="event.stopPropagation()">
+          <span><strong>1. Llamada a la acción (CTA):</strong> Selección final de las 3 opciones (sin la palabra «gratis»).</span>
+        </li>
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <input type="checkbox" checked onclick="event.stopPropagation()">
+          <span><strong>2. Identificador de Instagram:</strong> Confirmación del handle oficial <code>@mejorcomparo_es</code>.</span>
+        </li>
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <input type="checkbox" onclick="event.stopPropagation()">
+          <span><strong>3. Tipografías definitivas:</strong> Aprobación de Montserrat (títulos) + Inter (cuerpo).</span>
+        </li>
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <input type="checkbox" onclick="event.stopPropagation()">
+          <span><strong>4. Logotipo vectorial:</strong> Validación del pack de versiones en alta resolución.</span>
+        </li>
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <input type="checkbox" onclick="event.stopPropagation()">
+          <span><strong>5. Fotografías y recursos propios:</strong> Entrega de material visual de equipo o stock seleccionado.</span>
+        </li>
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <input type="checkbox" checked onclick="event.stopPropagation()">
+          <span><strong>6. Off-Limits Estrictos:</strong> Confirmación de NO presencia en LinkedIn y NO promesas de resultados infladas.</span>
+        </li>
+        <li class="checklist-item" onclick="toggleCheck(this)">
+          <input type="checkbox" onclick="event.stopPropagation()">
+          <span><strong>7. Aprobación de Ritmo:</strong> OK formal para 1 publicación diaria a partir del 29/09/2026.</span>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <p><strong>Borrador interno — Documento de trabajo confidencial</strong></p>
+    <p style="margin-top: 0.25rem;">Campaña: mejorcomparo-marketing · Generado por el Enjambre GROK & Antigravity · Septiembre 2026</p>
+  </footer>
+
+  <script>
+    // Selector interactivo de aspecto 1:1 vs 4:5
+    function setRatio(ratio) {
+      const canvases = document.querySelectorAll('.ig-canvas');
+      const buttons = document.querySelectorAll('.toggle-btn');
+      
+      buttons.forEach(b => b.classList.remove('active'));
+      
+      if (ratio === '4-5') {
+        canvases.forEach(c => c.classList.add('ratio-4-5'));
+        buttons[1].classList.add('active');
+      } else {
+        canvases.forEach(c => c.classList.remove('ratio-4-5'));
+        buttons[0].classList.add('active');
+      }
+    }
+
+    // Toggle interactivo para checklist
+    function toggleCheck(item) {
+      const cb = item.querySelector('input[type="checkbox"]');
+      cb.checked = !cb.checked;
+    }
+
+    // Selector interactivo de CTA
+    document.querySelectorAll('.cta-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.cta-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        card.querySelector('input[type="radio"]').checked = true;
+      });
+    });
+  </script>
+
+</body>
+</html>
